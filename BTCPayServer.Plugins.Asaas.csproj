@@ -31,11 +31,8 @@
 
   <!-- BTCPayServer Core References -->
   <ItemGroup>
-    <PackageReference Include="BTCPayServer.Abstractions" Version="1.13.0" />
-    <PackageReference Include="BTCPayServer.Client" Version="1.13.0" />
-    <PackageReference Include="BTCPayServer.Common" Version="1.13.0" />
-    <PackageReference Include="BTCPayServer.Data" Version="1.13.0" />
-    <PackageReference Include="BTCPayServer.Rating" Version="1.13.0" />
+    <PackageReference Include="BTCPayServer.Client" Version="2.0.0" />
+    <PackageReference Include="NBitcoin" Version="7.0.37" />
   </ItemGroup>
 
   <ItemGroup>

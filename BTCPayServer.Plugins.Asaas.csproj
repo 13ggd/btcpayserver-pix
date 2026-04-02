@@ -17,23 +17,15 @@
     <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
   </PropertyGroup>
 
-  <!-- Essential dependencies for plugin compilation -->
+  <!-- Minimal Dependencies -->
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
     <PackageReference Include="NBitcoin" Version="7.0.37" />
   </ItemGroup>
 
-  <!-- BTCPayServer Core References -->
-  <ItemGroup>
-    <PackageReference Include="BTCPayServer.Client" Version="2.0.0" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <EmbeddedResource Include="Resources\**" />
   </ItemGroup>

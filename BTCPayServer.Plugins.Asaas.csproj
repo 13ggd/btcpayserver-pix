@@ -30,6 +30,15 @@
     <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
   </ItemGroup>
 
+  <!-- BTCPayServer Core References -->
+  <ItemGroup>
+    <PackageReference Include="BTCPayServer.Abstractions" Version="1.13.0" />
+    <PackageReference Include="BTCPayServer.Client" Version="1.13.0" />
+    <PackageReference Include="BTCPayServer.Common" Version="1.13.0" />
+    <PackageReference Include="BTCPayServer.Data" Version="1.13.0" />
+    <PackageReference Include="BTCPayServer.Rating" Version="1.13.0" />
+  </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Include="Resources\**" />
   </ItemGroup>

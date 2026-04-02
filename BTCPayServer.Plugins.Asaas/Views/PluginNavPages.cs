@@ -1,4 +1,4 @@
-namespace BTCPayServer.Plugins.Template.Views;
+namespace BTCPayServer.Plugins.Asaas.Views;
 
 public enum PluginNavPages
 {

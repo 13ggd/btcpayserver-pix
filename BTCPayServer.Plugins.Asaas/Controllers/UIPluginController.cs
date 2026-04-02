@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BTCPayServer.Abstractions.Constants;
-using BTCPayServer.Client;
+using BTCPayServer.Plugins.Asaas.Data;
 using BTCPayServer.Plugins.Asaas.Data;
 using BTCPayServer.Plugins.Asaas.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -13,7 +13,7 @@ namespace BTCPayServer.Plugins.Asaas;
 [Authorize(AuthenticationSchemes = AuthenticationSchemes.Cookie, Policy = Policies.CanViewProfile)]
 public class UIPluginController : Controller
 {
-    private readonly AsaasService _PluginService;
+    private readonly AsaasService _AsaasService;
 
     public UIPluginController(AsaasService PluginService)
     {
@@ -23,7 +23,7 @@ public class UIPluginController : Controller
     // GET
     public async Task<IActionResult> Index()
     {
-        return View(new AsaasPluginPageViewModel { Data = await _PluginService.Get() });
+        return View(new AsaasPluginPageViewModel { Data = await _AsaasService.Get() });
     }
 }
 

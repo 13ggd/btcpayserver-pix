@@ -1,0 +1,188 @@
+@model BTCPayServer.Models.InvoicingModels.CheckoutModel
+@{
+    var additionalData = Model?.AdditionalData ?? new Dictionary<string, object>();
+    var paymentId = additionalData.GetValueOrDefault("paymentId")?.ToString();
+    var qrCodeImage = additionalData.GetValueOrDefault("qrCodeImage")?.ToString();
+    var pixPayload = additionalData.GetValueOrDefault("pixPayload")?.ToString();
+    var amount = additionalData.GetValueOrDefault("amount")?.ToString();
+    var expirationDate = additionalData.GetValueOrDefault("expirationDate")?.ToString();
+}
+
+<div class="asaas-pix-payment">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">
+                <i class="fa fa-qrcode me-2"></i>
+                Pagamento PIX - Asaas
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (!string.IsNullOrEmpty(paymentId))
+            {
+                <div class="text-center mb-4">
+                    <div class="pix-qr-section" id="pix-qr-section">
+                        @if (!string.IsNullOrEmpty(qrCodeImage))
+                        {
+                            <div class="mb-3">
+                                <label class="form-label">QR Code PIX:</label>
+                                <div class="qr-code-container">
+                                    <img src="data:image/png;base64,@qrCodeImage" 
+                                         alt="QR Code PIX" 
+                                         class="img-fluid qr-code-image" 
+                                         style="max-width: 256px; border: 1px solid #ddd; border-radius: 8px;" />
+                                </div>
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(pixPayload))
+                        {
+                            <div class="mb-3">
+                                <label class="form-label">Código PIX (Copia e Cola):</label>
+                                <div class="input-group">
+                                    <input type="text" 
+                                           class="form-control font-monospace" 
+                                           value="@pixPayload" 
+                                           readonly 
+                                           id="pix-copy-paste-code" />
+                                    <button type="button" 
+                                            class="btn btn-outline-secondary" 
+                                            onclick="copyPixCode()">
+                                        <i class="fa fa-copy"></i> Copiar
+                                    </button>
+                                </div>
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(amount))
+                        {
+                            <div class="alert alert-info">
+                                <strong>Valor:</strong> R$ @amount
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(expirationDate))
+                        {
+                            <div class="alert alert-warning">
+                                <i class="fa fa-clock-o me-2"></i>
+                                <strong>Expira em:</strong> @expirationDate
+                            </div>
+                        }
+                    </div>
+
+                    <div class="payment-instructions">
+                        <div class="alert alert-warning">
+                            <i class="fa fa-exclamation-triangle me-2"></i>
+                            <strong>Atenção:</strong> O pagamento PIX deve ser realizado até a data de expiração.
+                        </div>
+                        
+                        <div class="alert alert-info">
+                            <i class="fa fa-info-circle me-2"></i>
+                            Após o pagamento, a página será atualizada automaticamente.
+                        </div>
+
+                        <div class="alert alert-success">
+                            <i class="fa fa-shield me-2"></i>
+                            <strong>Segurança:</strong> Pagamento processado pela Asaas, plataforma confiável.
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="text-center">
+                    <div class="alert alert-danger">
+                        <i class="fa fa-exclamation-triangle me-2"></i>
+                        Não foi possível gerar as informações de pagamento PIX.
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+function copyPixCode() {
+    const input = document.getElementById('pix-copy-paste-code');
+    if (input) {
+        input.select();
+        input.setSelectionRange(0, 99999); // Para dispositivos móveis
+        
+        navigator.clipboard.writeText(input.value).then(function() {
+            const button = event.target.closest('button');
+            const originalHtml = button.innerHTML;
+            button.innerHTML = '<i class="fa fa-check"></i> Copiado!';
+            button.classList.remove('btn-outline-secondary');
+            button.classList.add('btn-success');
+            
+            setTimeout(function() {
+                button.innerHTML = originalHtml;
+                button.classList.remove('btn-success');
+                button.classList.add('btn-outline-secondary');
+            }, 2000);
+        }).catch(function(err) {
+            // Fallback para browsers mais antigos
+            document.execCommand('copy');
+            
+            const button = event.target.closest('button');
+            const originalHtml = button.innerHTML;
+            button.innerHTML = '<i class="fa fa-check"></i> Copiado!';
+            button.classList.remove('btn-outline-secondary');
+            button.classList.add('btn-success');
+            
+            setTimeout(function() {
+                button.innerHTML = originalHtml;
+                button.classList.remove('btn-success');
+                button.classList.add('btn-outline-secondary');
+            }, 2000);
+        });
+    }
+}
+</script>
+
+<style>
+.asaas-pix-payment {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.qr-code-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.qr-code-image {
+    transition: transform 0.2s ease;
+}
+
+.qr-code-image:hover {
+    transform: scale(1.05);
+}
+
+.payment-instructions {
+    margin-top: 20px;
+}
+
+.payment-instructions .alert {
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.font-monospace {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.text-break {
+    word-break: break-all;
+    overflow-wrap: break-word;
+}
+
+.card-header h5 {
+    color: #28a745;
+}
+
+.card {
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+</style>

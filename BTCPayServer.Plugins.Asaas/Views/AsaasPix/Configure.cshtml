@@ -1,0 +1,66 @@
+@model BTCPayServer.Plugins.Asaas.PaymentHandler.AsaasPixPaymentMethodConfig
+@{
+    ViewData["Title"] = "Asaas PIX";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>Configuração Asaas PIX</h5>
+                <div>
+                    <small>
+                        Aceite pagamentos PIX através da Asaas. 
+                        <a href="https://sandbox.asaas.com" target="_blank">Obter credenciais da API</a>
+                    </small>
+                </div>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-action="Configure">
+                    <div asp-validation-summary="All" class="alert alert-danger"></div>
+                    
+                    <div class="form-group">
+                        <label asp-for="Enabled" class="form-label">Habilitar Pagamentos PIX</label>
+                        <div class="d-flex align-items-center">
+                            <input type="hidden" name="Enabled" value="false" />
+                            <input asp-for="Enabled" type="checkbox" class="btcpay-toggle me-2"/>
+                            <label asp-for="Enabled" class="form-label mb-0">Habilitar Pagamentos PIX</label>
+                        </div>
+                        <span asp-validation-for="Enabled" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ApiKey" class="form-label">API Key</label>
+                        <input asp-for="ApiKey" type="password" class="form-control" placeholder="Digite sua API Key do Asaas" />
+                        <span asp-validation-for="ApiKey" class="text-danger"></span>
+                        <small class="form-text text-muted">
+                            Obtenha sua API Key no painel do Asaas
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="CustomerId" class="form-label">ID do Cliente Padrão</label>
+                        <input asp-for="CustomerId" type="text" class="form-control" placeholder="Digite o ID do cliente padrão" />
+                        <span asp-validation-for="CustomerId" class="text-danger"></span>
+                        <small class="form-text text-muted">
+                            ID do cliente que será usado para criar as cobranças PIX
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                            Salvar Configurações
+                        </button>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(TempData["SuccessMessage"]?.ToString()))
+                    {
+                        <div class="alert alert-success mt-3">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,18 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using BTCPayServer.Plugins.Template.Data;
+using BTCPayServer.Plugins.Asaas.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BTCPayServer.Plugins.Template;
+namespace BTCPayServer.Plugins.Asaas;
 
-public class MyPluginDbContext : DbContext
+public class AsaasDbContext : DbContext
 {
     private readonly bool _designTime;
 
-    public MyPluginDbContext(DbContextOptions<MyPluginDbContext> options, bool designTime = false)
+    public AsaasDbContext(DbContextOptions<AsaasDbContext> options, bool designTime = false)
         : base(options)
     {
         _designTime = designTime;
@@ -24,6 +24,6 @@ public class MyPluginDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.HasDefaultSchema("BTCPayServer.Plugins.Template");
+        modelBuilder.HasDefaultSchema("BTCPayServer.Plugins.Asaas");
     }
 }

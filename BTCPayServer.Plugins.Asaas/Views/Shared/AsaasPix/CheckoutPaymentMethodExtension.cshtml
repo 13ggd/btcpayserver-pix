@@ -1,0 +1,134 @@
+@* Extension para mostrar pagamento Asaas PIX no checkout *@
+<div class="asaas-pix-container" v-if="srvModel.paymentMethodId === 'ASAAS_PIX'">
+    <div class="payment-details">
+        <div class="pix-qr-container mb-3" v-if="srvModel.additionalData?.qrCodeImage">
+            <label class="form-label">QR Code PIX:</label>
+            <div class="text-center mb-3">
+                <img :src="`data:image/png;base64,${srvModel.additionalData.qrCodeImage}`" 
+                     alt="PIX QR Code" 
+                     class="img-fluid qr-code-image" 
+                     style="max-width: 256px; border: 1px solid #ddd; border-radius: 8px;" />
+            </div>
+        </div>
+
+        <div class="pix-code-container mb-3" v-if="srvModel.additionalData?.pixPayload">
+            <label class="form-label">Código PIX (Copia e Cola):</label>
+            <div class="input-group">
+                <input type="text"
+                       class="form-control font-monospace"
+                       :value="srvModel.additionalData.pixPayload"
+                       readonly
+                       id="pix-code-input" />
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        v-on:click="copyPixCode">
+                    <i class="fa fa-copy"></i> Copiar
+                </button>
+            </div>
+        </div>
+
+        <div class="amount-display text-center mb-3" v-if="srvModel.additionalData?.amount">
+            <h5>Valor: R$ {{ srvModel.additionalData.amount }}</h5>
+        </div>
+
+        <div class="expiration-display text-center mb-3" v-if="srvModel.additionalData?.expirationDate">
+            <div class="alert alert-warning">
+                <i class="fa fa-clock-o me-2"></i>
+                Expira em: {{ srvModel.additionalData.expirationDate }}
+            </div>
+        </div>
+
+        <div class="payment-status mt-3 text-center" v-if="!paymentReceived">
+            <div class="alert alert-info">
+                <i class="fa fa-clock-o me-2"></i>
+                Aguardando pagamento PIX...
+            </div>
+            <div class="mt-2">
+                <small class="text-muted">
+                    Escaneie o QR Code ou copie o código PIX para pagar
+                </small>
+            </div>
+        </div>
+
+        <div class="payment-success mt-3 text-center" v-if="paymentReceived">
+            <div class="alert alert-success">
+                <i class="fa fa-check-circle me-2"></i>
+                Pagamento PIX recebido com sucesso!
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyPixCode() {
+    const input = document.getElementById('pix-code-input');
+    if (input) {
+        input.select();
+        input.setSelectionRange(0, 99999);
+        
+        navigator.clipboard.writeText(input.value).then(function() {
+            const button = event.target.closest('button');
+            const originalHtml = button.innerHTML;
+            button.innerHTML = '<i class="fa fa-check"></i> Copiado!';
+            button.classList.remove('btn-outline-secondary');
+            button.classList.add('btn-success');
+            
+            setTimeout(function() {
+                button.innerHTML = originalHtml;
+                button.classList.remove('btn-success');
+                button.classList.add('btn-outline-secondary');
+            }, 2000);
+        }).catch(function(err) {
+            document.execCommand('copy');
+            
+            const button = event.target.closest('button');
+            const originalHtml = button.innerHTML;
+            button.innerHTML = '<i class="fa fa-check"></i> Copiado!';
+            button.classList.remove('btn-outline-secondary');
+            button.classList.add('btn-success');
+            
+            setTimeout(function() {
+                button.innerHTML = originalHtml;
+                button.classList.remove('btn-success');
+                button.classList.add('btn-outline-secondary');
+            }, 2000);
+        });
+    }
+}
+</script>
+
+<style>
+.asaas-pix-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.qr-code-image {
+    transition: transform 0.2s ease;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.qr-code-image:hover {
+    transform: scale(1.05);
+}
+
+.pix-code-container .input-group {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.payment-status .alert {
+    border-radius: 8px;
+}
+
+.payment-success .alert {
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.font-monospace {
+    font-family: 'Courier New', Courier, monospace;
+}
+</style>

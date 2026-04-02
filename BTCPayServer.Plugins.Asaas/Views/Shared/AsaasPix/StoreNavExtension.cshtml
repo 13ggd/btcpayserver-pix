@@ -1,0 +1,29 @@
+@using BTCPayServer.Data
+@using BTCPayServer.Services.Invoices
+@inject BTCPayServer.Services.Stores.StoreRepository StoreRepository
+@inject PaymentMethodHandlerDictionary Handlers
+
+@{
+    var storeId = ViewContext.RouteData.Values["storeId"]?.ToString()
+        ?? ViewContext.HttpContext?.Request.Query["storeId"].FirstOrDefault();
+}
+
+@if (!string.IsNullOrEmpty(storeId))
+{
+    var store = await StoreRepository.FindStore(storeId);
+    if (store == null)
+        return;
+
+    // Verificar se método de pagamento está habilitado para esta loja
+    var pmConfig = store.GetPaymentMethodConfig<BTCPayServer.Plugins.Asaas.PaymentHandler.AsaasPixPaymentMethodConfig>(
+        BTCPayServer.Plugins.Asaas.Plugin.AsaasPixPaymentMethodId, Handlers);
+    
+    if (pmConfig?.Enabled == true)
+    {
+        <li class="nav-item">
+            <a asp-route="AsaasPix" asp-route-storeId="@storeId" class="nav-link" id="Nav-AsaasPix">
+                <span>PIX (Asaas)</span>
+            </a>
+        </li>
+    }
+}

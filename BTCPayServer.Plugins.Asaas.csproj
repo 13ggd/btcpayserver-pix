@@ -17,8 +17,13 @@
     <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
   </PropertyGroup>
 
-  <!-- Plugin Dependencies - Using PackageReferences like normal plugins -->
+  <!-- Plugin Dependencies - BTCPayServer packages -->
   <ItemGroup>
+    <PackageReference Include="BTCPayServer.Abstractions" Version="1.13.0" />
+    <PackageReference Include="BTCPayServer.Client" Version="1.13.0" />
+    <PackageReference Include="BTCPayServer.Common" Version="1.13.0" />
+    <PackageReference Include="BTCPayServer.Data" Version="1.13.0" />
+    <PackageReference Include="BTCPayServer.Payments" Version="1.13.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -28,6 +33,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>

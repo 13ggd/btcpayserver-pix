@@ -444,6 +444,24 @@ $RECYCLE.BIN/
 .idea/
 *.sln.iml
 
+# BTCPay Server - Ignore entire submodule except essential references
+btcpayserver/
+!btcpayserver/BTCPayServer/BTCPayServer.csproj
+!btcpayserver/BTCPayServer.Abstractions/
+!btcpayserver/BTCPayServer.Client/
+!btcpayserver/BTCPayServer.Common/
+!btcpayserver/BTCPayServer.Data/
+!btcpayserver/BTCPayServer.Rating/
+!btcpayserver/BTCPayServer.PluginPkg/
+!btcpayserver/BTCPayServer.Tests/
+
+# Build artifacts
+obj/
+bin/
+out/
+build/
+dist/
+
 ##
 ## Visual Studio Code
 ##

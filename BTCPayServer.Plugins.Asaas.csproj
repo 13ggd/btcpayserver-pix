@@ -20,7 +20,6 @@
   <!-- Essential dependencies for plugin compilation -->
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NBitcoin" Version="7.0.32" />
@@ -32,11 +31,11 @@
 
   <!-- BTCPayServer Core References -->
   <ItemGroup>
-    <PackageReference Include="BTCPayServer.Abstractions" Version="1.13.0" />
-    <PackageReference Include="BTCPayServer.Client" Version="1.13.0" />
-    <PackageReference Include="BTCPayServer.Common" Version="1.13.0" />
-    <PackageReference Include="BTCPayServer.Data" Version="1.13.0" />
-    <PackageReference Include="BTCPayServer.Rating" Version="1.13.0" />
+    <PackageReference Include="BTCPayServer.Abstractions" />
+    <PackageReference Include="BTCPayServer.Client" />
+    <PackageReference Include="BTCPayServer.Common" />
+    <PackageReference Include="BTCPayServer.Data" />
+    <PackageReference Include="BTCPayServer.Rating" />
   </ItemGroup>
 
   <ItemGroup>

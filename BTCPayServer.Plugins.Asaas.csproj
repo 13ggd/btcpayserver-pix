@@ -23,9 +23,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="NBitcoin" Version="6.0.20" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.18" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+    <PackageReference Include="NBitcoin" Version="7.0.32" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
   </ItemGroup>
 
   <!-- This will make sure that referencing BTCPayServer doesn't put any artifact in published directory -->
